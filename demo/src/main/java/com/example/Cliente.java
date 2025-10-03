@@ -7,6 +7,9 @@ public class Cliente implements Empresa{
     private List<Pedido> pedidos = new ArrayList<>();
     private String nome;
 
+    public Cliente(){
+    }
+
     public Cliente(String nome){
         this.nome = nome;
     }
@@ -42,5 +45,9 @@ public class Cliente implements Empresa{
 
     public String getNome(){
         return this.nome;
+    }
+
+    public List<Pedido> getPedidos(){
+        return this.pedidos;
     }
 }
