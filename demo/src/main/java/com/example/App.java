@@ -1,8 +1,6 @@
 package com.example;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 /**
  * Hello world!
@@ -68,7 +66,9 @@ public class App
             System.out.println( "" );
             System.out.println( "-1)Verificar Todos Pedidos" );
             System.out.println( "-2)Consultar Pedido Especifico" );
-            System.out.println( "-3)Voltar Para Menu Principal" );
+            System.out.println( "-3)Pedidos Em Aberto" );
+            System.out.println( "-4)Pedidos Fechados" );
+            System.out.println( "-5)Voltar Para Menu Principal" );
             System.out.println( "-00)Sair" );
             System.out.println( "" );
             System.out.println( "-------------------" );
@@ -194,7 +194,7 @@ public class App
                 System.out.println("Digite uma tecla para continuar. ou 00 para sair ");
                 input = scanner.nextLine();
             }
-            if(input.equals("2")){
+            else if(input.equals("2")){
                 System.out.println("");
                 System.out.println("Digite codigo do pedido: ");
                 int cod_pedido;
@@ -210,7 +210,14 @@ public class App
                     System.out.println("Status Alterado");
                 }
             }
-            if(input.equals("3")){
+            else if(input.equals("3")){
+                f1.consultar();
+            }
+
+            else if(input.equals("4")){
+                f1.consultarFechados();
+            }
+            else if(input.equals("5")){
                 menuPrincipal();
             }
         }

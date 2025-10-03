@@ -73,5 +73,9 @@ public class SistemaEmpresa {
     public List<Cliente> getClientes() {
         return clientes;
     }
+
+    public List<Pedido> getTodosPedidos() {
+        return todosPedidos;
+    }
 }
 
