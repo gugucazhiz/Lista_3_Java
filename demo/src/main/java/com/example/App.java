@@ -1,6 +1,8 @@
 package com.example;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 /**
  * Hello world!
@@ -16,6 +18,7 @@ public class App
     static LocalTime horaAtual = LocalTime.now();
     static SistemaEmpresa sistema = new SistemaEmpresa();
     static Cliente c1;
+    static Funcionario f1;
     public static void main( String[] args )
     {
 
@@ -38,8 +41,13 @@ public class App
             System.out.println( "-00)Sair" );
             System.out.println( "" );
             System.out.println( "-------------------" );
+            
+            input = scanner.nextLine();
             if(input.equals("1")){
                 cliente();
+            }
+            if(input.equals("2")){
+                funcionario();
             }
     }
 
@@ -49,6 +57,18 @@ public class App
             System.out.println( "" );
             System.out.println( "-1)Fazer Pedido" );
             System.out.println( "-2)Consultar Pedidos" );
+            System.out.println( "-00)Sair" );
+            System.out.println( "" );
+            System.out.println( "-------------------" );
+    }
+
+    public static void menu2(){
+            System.out.println( "----Menu-2----------" );
+            System.out.println( "" );
+            System.out.println( "" );
+            System.out.println( "-1)Verificar Todos Pedidos" );
+            System.out.println( "-2)Consultar Pedido Especifico" );
+            System.out.println( "-3)Voltar Para Menu Principal" );
             System.out.println( "-00)Sair" );
             System.out.println( "" );
             System.out.println( "-------------------" );
@@ -103,6 +123,7 @@ public class App
         System.out.println("Digite Seu Nome: ");
         nome = scanner.nextLine();
         c1 =sistema.cadastrarCliente(nome);
+        System.out.println("");
         input = scanner.nextLine();
         menu1();
         input = scanner.nextLine();
@@ -139,7 +160,9 @@ public class App
                     pedido1.efetuarPagamento(input);
                     System.out.println("");
                     System.out.println("Confirmado");
+                    System.out.println("Codigo do pedido: "+pedido1.getCodPedido());
                     c1.addPedido(pedido1);
+                    sistema.addPedido(pedido1);
                     input = "00";
                 }
             }
@@ -154,6 +177,42 @@ public class App
                 c1.consultarFechados();
             }
             
+        }
+    }
+
+    public static void funcionario(){
+        String nome;
+        System.out.println("Digite Seu Nome: ");
+        nome = scanner.nextLine();
+        f1 = sistema.cadastrarFuncionario(nome);
+        System.out.println("");
+        while(!input.equals("00")){
+            menu2();
+            input = scanner.nextLine();
+            if(input.equals("1")){
+                sistema.listarPedidos();
+                System.out.println("Digite uma tecla para continuar. ou 00 para sair ");
+                input = scanner.nextLine();
+            }
+            if(input.equals("2")){
+                System.out.println("");
+                System.out.println("Digite codigo do pedido: ");
+                int cod_pedido;
+                cod_pedido = scanner.nextInt();
+                input = scanner.nextLine();
+                Pedido seletor =sistema.listarEspecifico(cod_pedido);
+
+                System.out.println("");
+                System.out.println("Deseja Concluir esse pedido?: 1=sim || 2=nao ");
+                input = scanner.nextLine();
+                if(input.equals("1")){
+                    seletor.setStatus("Concluido");
+                    System.out.println("Status Alterado");
+                }
+            }
+            if(input.equals("3")){
+                menuPrincipal();
+            }
         }
     }
 }

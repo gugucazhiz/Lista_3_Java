@@ -15,6 +15,7 @@ public class Pedido {
     private int qtn_botijoes;
     private String status_do_pedido ="Não Concluido";
     private String cartao;
+    private String nome_Associado;
 
     public Pedido(LocalDate Data,LocalTime hora,String endereco,int qtn_botijoes){
         this.qtn_botijoes = qtn_botijoes;
@@ -55,4 +56,17 @@ public class Pedido {
     public Float getTotalPedido(){
         return (valor_botijao * qtn_botijoes);
     }
+
+    public String getNomeAssociado(){
+        return this.nome_Associado;
+    }
+
+    public void setNomeAssociado(String nome_Associado){
+        this.nome_Associado = nome_Associado;
+    }
+
+    public void setStatus(String status_do_pedido){
+        this.status_do_pedido = status_do_pedido;
+    }
+
 }

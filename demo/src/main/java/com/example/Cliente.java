@@ -13,6 +13,7 @@ public class Cliente implements Empresa{
 
     public void addPedido(Pedido pedido){
         pedidos.add(pedido);
+        pedido.setNomeAssociado(nome);
     }
 
     public  void consultar(){
@@ -30,9 +31,10 @@ public class Cliente implements Empresa{
     public  void consultarFechados(){
         System.out.println(this.nome+" tem Esses Pedidos Cadastrados Concluidos");
         for(Pedido p : pedidos){
-            if(p.getStatus().equals("Fechado")){
+            if(p.getStatus().equals("Concluido")){
                 System.out.println("Codigo:" +p.getCodPedido());
                 System.out.println("Status:" +p.getStatus());
+                System.out.println("Total: "+p.getTotalPedido());
             }
         }
     }
