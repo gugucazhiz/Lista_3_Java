@@ -7,7 +7,8 @@ import java.time.LocalTime;
 
 public class Pedido {
     final static float valor_botijao = 80.00f;
-    static int cod_pedido =0;
+    static int contador =0;
+    private int cod_pedido;
     private LocalDate Data;
     private LocalTime hora;
     private String endereco;
@@ -20,7 +21,8 @@ public class Pedido {
         this.Data = Data;
         this.endereco = endereco;
         this.hora = hora;
-        cod_pedido += 1;
+        contador += 1;
+        this.cod_pedido=contador;
     }
 
     public static String  totalPedido(int qtn_botijoes){
@@ -29,7 +31,7 @@ public class Pedido {
 
     public void efetuarPagamento(String cartao){
         this.cartao = cartao;
-        status_do_pedido = "Concluido";
+        status_do_pedido = "Aberto";
     }
     @Override
     public String toString() {
@@ -41,4 +43,16 @@ public class Pedido {
                "Previsão De Entrega: "+this.hora.plusHours(2);
     }
 
+
+    public String getStatus(){
+        return this.status_do_pedido;
+    }
+
+    public int getCodPedido(){
+        return this.cod_pedido;
+    }
+
+    public Float getTotalPedido(){
+        return (valor_botijao * qtn_botijoes);
+    }
 }
