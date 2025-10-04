@@ -190,7 +190,7 @@ public class App
             menu2();
             input = scanner.nextLine();
             if(input.equals("1")){
-                sistema.listarPedidos();
+                f1.listarPedidos();
                 System.out.println("Digite uma tecla para continuar. ou 00 para sair ");
                 input = scanner.nextLine();
             }
@@ -200,7 +200,7 @@ public class App
                 int cod_pedido;
                 cod_pedido = scanner.nextInt();
                 input = scanner.nextLine();
-                Pedido seletor =sistema.listarEspecifico(cod_pedido);
+                Pedido seletor =f1.listarEspecifico(cod_pedido);
 
                 System.out.println("");
                 System.out.println("Deseja Concluir esse pedido?: 1=sim || 2=nao ");

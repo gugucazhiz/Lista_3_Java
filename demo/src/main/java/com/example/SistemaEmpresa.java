@@ -39,36 +39,6 @@ public class SistemaEmpresa {
         todosPedidos.add(pedido);
     }
 
-    public void listarPedidos(){
-        if(todosPedidos.isEmpty()){
-            System.out.println("Nenhum Pedido Cadastrado. ");
-        }
-        else{
-            for(Pedido p : todosPedidos){
-                System.out.println("Nome: "+p.getNomeAssociado());
-                System.out.println("Codigo:" +p.getCodPedido());
-                System.out.println("Status:" +p.getStatus());
-                System.out.println("Total: "+p.getTotalPedido());
-
-                System.out.println("");
-            }
-        }
-    }
-
-    public Pedido listarEspecifico(int cod_pedido){
-        for(Pedido p : todosPedidos){
-            if(p.getCodPedido() == cod_pedido){
-                System.out.println("Nome: "+p.getNomeAssociado());
-                System.out.println("Codigo:" +p.getCodPedido());
-                System.out.println("Status:" +p.getStatus());
-                System.out.println("Total: "+p.getTotalPedido());
-                return p;
-            }
-        }
-        System.out.println("Esse pedido de codigo "+cod_pedido+" não existe.");
-        return null;
-        
-    }
 
     public List<Cliente> getClientes() {
         return clientes;
