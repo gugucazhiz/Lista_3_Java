@@ -29,7 +29,7 @@ public class SistemaEmpresa {
             }
         }
 
-        Funcionario novo = new Funcionario(nome);
+        Funcionario novo = new Funcionario(nome, this);
         funcionarios.add(novo);
         System.out.println("Novo Funcionario cadastrado: " + nome);
         return novo;

@@ -212,10 +212,12 @@ public class App
             }
             else if(input.equals("3")){
                 f1.consultar();
+                input = scanner.nextLine();
             }
 
             else if(input.equals("4")){
                 f1.consultarFechados();
+                input = scanner.nextLine();
             }
             else if(input.equals("5")){
                 menuPrincipal();
