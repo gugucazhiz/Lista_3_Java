@@ -4,7 +4,8 @@ public class Jogador {
     public static int limite = 0;
     private int id;
     private String nome;
-    private int pontuacao;
+    private int pontuacao = 0;
+    private int numero_Jogado;
 
     public Jogador(String nome){
         if(limite >=4){
@@ -26,12 +27,19 @@ public class Jogador {
     public int getId(){
         return id;
     }
+    public int getNumeroJogado(){
+        return numero_Jogado;
+    }
 
     // meus sets
-    public void setPontuacao(){
-        this.pontuacao = pontuacao;
+    public void setPontuacao(int pontuacao){
+        this.pontuacao += pontuacao;
     }
-    public void setNome(){
+    public void setNome(String nome){
         this.nome = nome;
     }
+    public void setNumeroJogado(int numero_Jogado){
+        this.numero_Jogado = numero_Jogado;
+    }
+
 }

@@ -1,12 +1,14 @@
 package lista3.servicy;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import lista3.entity.*;
 
 public class CreatePlayer {
-    List<Jogador> jogadores = new ArrayList<>();
+    private List<Jogador> jogadores = new ArrayList<>();
     
 
     public Boolean criarJogador(String nome){
@@ -34,5 +36,18 @@ public class CreatePlayer {
             return false;
         }
         return true;
+    }
+
+    public void ordenarJogadores(){
+        Collections.sort(jogadores , new Comparator<Jogador>() {
+            @Override
+            public int compare(Jogador j1,Jogador j2){
+                return Integer.compare(j2.getPontuacao(), j1.getPontuacao());
+            }
+        });
+    }
+
+    public List<Jogador> getJogadores(){
+        return jogadores;
     }
 }
