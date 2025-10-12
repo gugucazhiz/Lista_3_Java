@@ -8,7 +8,7 @@ public class Jogador {
     private int numero_Jogado;
 
     public Jogador(String nome){
-        if(limite >=4){
+        if(limite >=12){
             throw new IllegalStateException("Limite De Jogadores Atingido. ");
         }
         this.nome = nome;
@@ -40,6 +40,10 @@ public class Jogador {
     }
     public void setNumeroJogado(int numero_Jogado){
         this.numero_Jogado = numero_Jogado;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

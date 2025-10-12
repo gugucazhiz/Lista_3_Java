@@ -6,7 +6,7 @@ import lista3.entity.Dado;
 import lista3.entity.Jogador;
 import lista3.entity.Robo;
 import lista3.servicy.*;
-
+import lista3.util.*;
 public class CreateGame {
     static Scanner scan = new Scanner(System.in);
     static String validator = "1";
@@ -20,24 +20,33 @@ public class CreateGame {
     static int somaTotal;
     static int ganhadores;
     static int posicao_Atual;
+    static FileHandler fileHandler = new FileHandler();
     //
     static Dado dado1 = new Dado();
     static Dado dado2 = new Dado();
     //
 
     public static void bemVindo(){
+        System.out.println("--------Carregando--------");
+        create = fileHandler.carregar();
+        System.out.println("--------Carregando--------");
+
         System.out.println();
         System.out.println("1) Iniciar Jogo");
         System.out.println("2) Placar");
         System.out.println("3) Zerar Jogos");
         System.out.println("0) Sair");
         System.out.println();
+        
         validator =scan.nextLine();
         escolhido();
     }
-
-    public static void newGame(){
+    public static void loading(){
         if(create.getJogadores().isEmpty()){
+            newGame();}
+        iniciarPartida();
+    }
+    public static void newGame(){
             while (recebe_BOOL) {
                 System.out.println("Digite nome ou digite 0 para sair: ");
                 nome= scan.nextLine();
@@ -49,7 +58,6 @@ public class CreateGame {
                 }
                 
             }
-        }
         iniciarPartida();
     }
 
@@ -68,19 +76,26 @@ public class CreateGame {
         }
         System.out.println("--------Placar--------");
         System.out.println();
+        System.out.println("--------Voltar--------");
+        System.out.println();
         System.out.println("Deseja Voltar Para Menu Principal");
         System.out.println("Digite '1' Para Sim");
         System.out.println("Digite '2' Para Nao e Sair");
+        System.out.println();
+        System.out.println("--------Voltar--------");
+
         validator = scan.nextLine();
         if(validator.equals("1")){
             bemVindo();
             return false;
         }
+        fileHandler.Salvar(create);
         return false;
     }
 
     public static void zerarJogos(){
-
+        fileHandler.apagar();
+        bemVindo();
     }
 
     public static void sair(){
@@ -146,7 +161,7 @@ public class CreateGame {
         if(ganhadores > 0){
             System.out.println("Total De Ganhadores: "+ganhadores);
             System.out.println("Premio De "+" Sera Dividido Igualmente: "+"R$ ");
-        }
+        } 
         ganhadores =0;
         System.out.println("Digite Uma Tecla Para Nova Partida ou '0' Para Sair E Ver Placar");
         validator=scan.nextLine();
@@ -161,7 +176,7 @@ public class CreateGame {
     public static void escolhido(){
         switch (validator) {
             case "1":
-                newGame();
+                loading();
                 break;
             case "2":
                 placar();
