@@ -80,6 +80,8 @@ public class FileHandler {
         String output = "save.csv";
 
         try(FileWriter write = new FileWriter(output)) {
+            Jogador.limite = 0; //estava dando erro, a base de jogadores era apagada, mas limite continuava
+            //incrementando de onde parou
             write.append("");          
         } catch (IOException e) {
             // TODO: handle exception
