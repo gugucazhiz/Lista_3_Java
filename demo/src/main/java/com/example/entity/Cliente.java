@@ -1,7 +1,9 @@
-package com.example;
+package com.example.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.util.Pedido;
 
 public class Cliente implements Empresa{
     private List<Pedido> pedidos = new ArrayList<>();

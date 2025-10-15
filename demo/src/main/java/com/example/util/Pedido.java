@@ -1,7 +1,8 @@
-package com.example;
+package com.example.util;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
@@ -11,6 +12,8 @@ public class Pedido {
     private int cod_pedido;
     private LocalDate Data;
     private LocalTime hora;
+    private LocalDate DataPrevisao;
+    private LocalTime horaPrevisao;
     private String endereco;
     private int qtn_botijoes;
     private String status_do_pedido ="Não Concluido";
@@ -24,6 +27,7 @@ public class Pedido {
         this.hora = hora;
         contador += 1;
         this.cod_pedido=contador;
+        getPrevisaoEntrega();
     }
 
     public static String  totalPedido(int qtn_botijoes){
@@ -41,9 +45,20 @@ public class Pedido {
                "Hora: "+this.hora+"\n"+
                "Quantidade: "+this.qtn_botijoes+"\n"+
                "Total: "+totalPedido(qtn_botijoes)+"\n"+
-               "Previsão De Entrega: "+this.hora.plusHours(2);
+               "Previsão De Hora da Entrega: "+horaPrevisao+"\n"+
+               "Previsão Do Dia da Entrega: "+DataPrevisao;
     }
-
+    public boolean getPrevisaoEntrega(){
+        LocalTime horarioLimite = LocalTime.of(22,0);
+        if (this.hora.isAfter(horarioLimite)) {
+            horaPrevisao = horarioLimite.plusHours(8);
+            DataPrevisao = this.Data.plusDays(1);
+            return false;
+        }
+        horaPrevisao = this.hora.plusHours(2);
+        DataPrevisao = this.Data;
+        return false;
+    } 
 
     public String getStatus(){
         return this.status_do_pedido;

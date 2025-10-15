@@ -1,5 +1,7 @@
-package com.example;
+package com.example.entity;
 
+import com.example.controler.SistemaEmpresa;
+import com.example.util.Pedido;
 
 public class Funcionario implements Empresa {
     private String nome;

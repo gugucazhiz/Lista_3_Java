@@ -1,4 +1,4 @@
-package lista3;
+package lista3.entity;
 
 public class Robo {
     private int[] linha = new int[13];

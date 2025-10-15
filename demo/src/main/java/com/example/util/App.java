@@ -1,7 +1,11 @@
-package com.example;
+package com.example.util;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
+
+import com.example.controler.SistemaEmpresa;
+import com.example.entity.Cliente;
+import com.example.entity.Funcionario;
 /**
  * Hello world!
  *
@@ -17,7 +21,7 @@ public class App
     static SistemaEmpresa sistema = new SistemaEmpresa();
     static Cliente c1;
     static Funcionario f1;
-    public static void main( String[] args )
+    public static void jogar()
     {
 
         // Teste
