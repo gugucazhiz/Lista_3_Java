@@ -5,7 +5,6 @@ import java.util.Scanner;
 import lista3.entity.Dado;
 import lista3.entity.Jogador;
 import lista3.entity.Robo;
-import lista3.servicy.*;
 import lista3.util.*;
 public class CreateGame {
     static Scanner scan = new Scanner(System.in);
@@ -21,6 +20,7 @@ public class CreateGame {
     static int ganhadores;
     static int posicao_Atual;
     static FileHandler fileHandler = new FileHandler();
+    static float premio;
     //
     static Dado dado1 = new Dado();
     static Dado dado2 = new Dado();
@@ -112,12 +112,16 @@ public class CreateGame {
         System.out.println("");
         System.out.println("");
         for (Jogador j : create.getJogadores()) {
+            System.out.println("----------------------------------");
             System.out.println();
             System.out.println("Digite um Numero De 1 a 12 A Ser Jogado Pelo Jogador:");
             System.out.println(j.getNome());
             System.out.println();
             numeroJogado = scan.nextLine();
             j.setNumeroJogado(Integer.parseInt(numeroJogado));
+            System.out.println("Digite um Numero De 1 a 12 A Ser Apostado Pelo Jogador");
+            premio += Integer.parseInt(scan.nextLine());
+            System.out.println("----------------------------------");
         }
         robo.jogar();
         for(Jogador j : create.getJogadores()){
@@ -159,9 +163,13 @@ public class CreateGame {
             ganhadores++;
         }
         if(ganhadores > 0){
+            System.out.println();
+            System.out.println("----------------------");
             System.out.println("Total De Ganhadores: "+ganhadores);
-            System.out.println("Premio De "+" Sera Dividido Igualmente: "+"R$ ");
+            System.out.println("Premio De "+premio+" Sera Dividido Igualmente: "+"R$ "+premio/ganhadores);
+            System.out.println("----------------------");
         } 
+        premio = 0;
         ganhadores =0;
         System.out.println("Digite Uma Tecla Para Nova Partida ou '0' Para Sair E Ver Placar");
         validator=scan.nextLine();

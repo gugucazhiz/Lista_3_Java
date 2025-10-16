@@ -3,11 +3,9 @@ package lista3.util;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,10 +38,11 @@ public class FileHandler {
         String input = "save.csv";
         CreatePlayer carregando = new CreatePlayer();
         int i =0;
-        try(Stream<String> lista = Files.lines(Paths.get(input))){
-            List<List<String>> dados = lista.map(linhas -> {
-                return List.of(linhas.split(","));
-            }).collect(Collectors.toList());
+        try(Stream<String> linhas =Files.lines(Paths.get(input))){
+            List<List<String>> dados = linhas
+            .map(linha -> Arrays.asList(linha.split(",")))
+            .collect(Collectors.toList());
+        
 
             if(!dados.isEmpty()){
                 dados.remove(0);
