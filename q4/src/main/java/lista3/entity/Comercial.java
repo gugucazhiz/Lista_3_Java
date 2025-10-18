@@ -1,24 +1,34 @@
 package lista3.entity;
 
-import lista3.servicy.Empresa;
-import lista3.servicy.PuxarDados;
+import java.util.ArrayList;
+import java.util.List;
+
+import lista3.service.Empresa;
+import lista3.service.PuxarDados;
 
 public class Comercial extends Residencia implements Empresa,PuxarDados{
     private final double dolar = 6.5;
+    private float total =0;
     private String nome;
     private String setor;
     private String cadastrarCnpj;
-    private int vendas;
-    private int estoque;
+    private List<Integer> vendas = new ArrayList<>();
+    private List<String> tipoVenda = new ArrayList<>();
     private String localizacao;
-    private String tipoVenda;
     private int abertura;
     private int fechamento;
+    private Boolean isUrbana;
 
     public Comercial(String nome,String cadastrarCnpj,String localizacao){
         this.cadastrarCnpj = cadastrarCnpj;
         this.nome = nome;
         this.localizacao = localizacao;
+    }
+    public Comercial(String nome,String cadastrarCnpj,String localizacao,Boolean isUrbana){
+        this.cadastrarCnpj = cadastrarCnpj;
+        this.nome = nome;
+        this.localizacao = localizacao;
+        this.isUrbana = isUrbana;
     }
     public Comercial(String nome,String setor,String cadastrarCnpj,String localizacao){
         this.nome = nome;
@@ -27,24 +37,41 @@ public class Comercial extends Residencia implements Empresa,PuxarDados{
         this.localizacao = localizacao;
     }
 
+    @Override
+    public Boolean isUrbana() {
+        // TODO Auto-generated method stub
+        return isUrbana;
+    }
     public void addVenda(int vendas){
-        this.vendas += vendas;
+        this.vendas.add(vendas);
+        this.tipoVenda.add("Não Informado");
     }
 
     public void addVenda(int vendas,String tipoVenda){
-        this.vendas += vendas;
+        this.vendas.add(vendas);
+        this.tipoVenda.add(tipoVenda);
         System.out.println("Venda do tipo: "+tipoVenda);
     }
 
     @Override
-    public float analiseDeMercado() {
-        return (float)(vendas*dolar);
+    public Float analiseDeMercado() {
+        int i =0;
+        System.out.println("-----------------Estoque-------------");
+        for (Integer v1 : vendas) {
+            System.out.println(i+")Venda, total de itens vendidos: "+v1);
+            System.out.println("Venda do tipo: "+tipoVenda.get(i));
+            this.total += v1;
+            System.out.println();
+            i++;
+        };
+        System.out.println("-----------------Estoque-------------");
+        return  (float) (total*dolar);
     }
 
     @Override
     public String AnaliseCnpj() {
         // TODO Auto-generated method stub
-        if(vendas>= 1){
+        if(!vendas.isEmpty()){
             return "Cnpj de "+nome+" Esta Ativo";
         }
         return "Cnpj não possui transações realizadas";
@@ -92,20 +119,8 @@ public class Comercial extends Residencia implements Empresa,PuxarDados{
         this.setor = setor;
     }
 
-    public int getVendas() {
+    public List<Integer> getVendas() {
         return vendas;
-    }
-
-    public void setVendas(int vendas) {
-        this.vendas = vendas;
-    }
-
-    public int getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
     }
 
     

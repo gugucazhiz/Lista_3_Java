@@ -1,4 +1,4 @@
-package lista3.servicy;
+package lista3.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
