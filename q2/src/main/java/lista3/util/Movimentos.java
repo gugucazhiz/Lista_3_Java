@@ -5,18 +5,20 @@ import java.util.Scanner;
 import lista3.entity.Robo;
 
 public class Movimentos {
-    public void movimentos(){
+    public void movimentos() throws IndexOutOfBoundsException{
         Robo robo = new Robo(1, 1);
         Scanner scanner = new Scanner(System.in);
         int input =0;
 
-        while (input !=90) {
+        while (input !=6) {
 
             System.out.println("");
             robo.menu();
 
             input = scanner.nextInt();
-
+            if(input > 6 || input < 1 ){
+                throw new IndexOutOfBoundsException("Numero não permitido!");
+            }
             switch (input) {
                 case 1:
                     System.out.println(digiteValor()+ "para frente: "); 
@@ -49,7 +51,7 @@ public class Movimentos {
             
                 default:
                     System.out.println("\nSaindo");
-                    input = 90;
+                    input = 6;
                     break;
             }
 

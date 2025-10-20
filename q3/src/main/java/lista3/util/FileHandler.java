@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import lista3.servicy.*;
 import lista3.entity.Jogador;
+import lista3.service.*;
 
 public class FileHandler {
     
-    public void Salvar(CreatePlayer player){
+    public void salvar(CreatePlayer player){
         String output = "save.csv";
         try(FileWriter writer = new FileWriter(output)) {
 
@@ -26,6 +26,8 @@ public class FileHandler {
                 .append(String.valueOf(j.getId()))
                 .append(",")
                 .append(String.valueOf(j.getPontuacao()))
+                .append(",")
+                .append(String.valueOf(j.getSaldo()))
                 .append("\n");
             }
         }
@@ -44,7 +46,7 @@ public class FileHandler {
             .collect(Collectors.toList());
         
 
-            if(!dados.isEmpty()){
+            if(!dados.isEmpty() && dados.size() > 1){
                 dados.remove(0);
                     System.out.println("Carregando os Dados de: ");
                     System.out.println();
@@ -53,10 +55,10 @@ public class FileHandler {
                     carregando.criarJogador(linha.get(0));
                     carregando.getJogadores().get(i).setId(Integer.parseInt(linha.get(1)));
                     carregando.getJogadores().get(i).setPontuacao(Integer.parseInt(linha.get(2)));
+                    carregando.getJogadores().get(i).setSaldo(Float.parseFloat(linha.get(3)));
                     i++;
                 }
                 return carregando;
-
 /* ler os jogadores adicionados /// para TESTE
                 for (Jogador j : carregando.getJogadores()) {
                     System.out.println();
@@ -66,6 +68,9 @@ public class FileHandler {
                     System.out.println();
         }
 */
+            }
+            else{
+                apagar();
             }
         }
         catch (IOException e) {

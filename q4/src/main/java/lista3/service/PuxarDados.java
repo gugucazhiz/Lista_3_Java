@@ -1,4 +1,4 @@
-package lista3.servicy;
+package lista3.service;
 
 public interface PuxarDados{
     public static final int abertura = 8;

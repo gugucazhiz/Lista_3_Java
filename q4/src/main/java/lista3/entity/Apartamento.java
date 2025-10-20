@@ -1,6 +1,6 @@
 package lista3.entity;
 
-import lista3.servicy.PuxarDados;
+import lista3.service.PuxarDados;
 
 public class Apartamento extends Moradia implements PuxarDados{
     private int andar;
@@ -44,5 +44,21 @@ public class Apartamento extends Moradia implements PuxarDados{
         super.vender(proprietario);
     }
 
-    
+    public int getAndar() {
+        return andar;
+    }
+
+    public String getLocalizacao(){
+        return super.localizacao();
+    }
+
+    @Override
+    public String getAlugadoPara() {
+        // TODO Auto-generated method stub
+        return super.getAlugadoPara();
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
 }

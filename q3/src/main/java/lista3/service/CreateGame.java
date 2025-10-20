@@ -1,4 +1,4 @@
-package lista3.servicy;
+package lista3.service;
 
 import java.util.Scanner;
 
@@ -7,28 +7,35 @@ import lista3.entity.Jogador;
 import lista3.entity.Robo;
 import lista3.util.*;
 public class CreateGame {
-    static Scanner scan = new Scanner(System.in);
-    static String validator = "1";
-    static String nome;
-    static String numeroJogado;
-    static boolean recebe_BOOL = true;
-    static CreatePlayer create = new CreatePlayer();
-    static Robo robo = new Robo();
-    static int soma1;
-    static int soma2;
-    static int somaTotal;
-    static int ganhadores;
-    static int posicao_Atual;
-    static FileHandler fileHandler = new FileHandler();
-    static float premio;
+    private static Scanner scan = new Scanner(System.in);
+    private int apostaAtual;
+    private String validator = "1";
+    private String nome;
+    private String numeroJogado;
+    private boolean recebe_BOOL = true;
+    private CreatePlayer create;
+    private final Robo robo;
+    private int soma1;
+    private int soma2;
+    private int somaTotal;
+    private int ganhadores;
+    private int posicao_Atual;
+    private final FileHandler fileHandler;
+    private final Dado[] dados;
+    private float premio;
+    private Boolean passou = false;
+    private Boolean passouAposta = false;
     //
-    static Dado dado1 = new Dado();
-    static Dado dado2 = new Dado();
     //
-
-    public static void bemVindo(){
+    public CreateGame(CreatePlayer create,FileHandler fileHandler){
+        this.create = create;
+        this.fileHandler = fileHandler;
+        this.robo = new Robo();
+        this.dados = new Dado[]{new Dado(),new Dado()};
+    }
+    public void bemVindo(){
         System.out.println("--------Carregando--------");
-        create = fileHandler.carregar();
+        this.create = fileHandler.carregar();
         System.out.println("--------Carregando--------");
 
         System.out.println();
@@ -41,12 +48,15 @@ public class CreateGame {
         validator =scan.nextLine();
         escolhido();
     }
-    public static void loading(){
-        if(create.getJogadores().isEmpty()){
-            newGame();}
+    public void loading(){
+        if(create.getJogadores().isEmpty() || create.getJogadores().size() < 1){
+            System.out.println("Vai Criar");
+            newGame();
+        }
+        System.out.println("Passou direto");
         iniciarPartida();
     }
-    public static void newGame(){
+    public void newGame(){
             while (recebe_BOOL) {
                 System.out.println("Digite nome ou digite 0 para sair: ");
                 nome= scan.nextLine();
@@ -58,10 +68,11 @@ public class CreateGame {
                 }
                 
             }
+            recebe_BOOL=true;
         iniciarPartida();
     }
 
-    public static boolean placar(){
+    public  boolean placar(){
         create.ordenarJogadores();
         System.out.println("--------Placar--------");
         System.out.println();
@@ -72,6 +83,7 @@ public class CreateGame {
             System.out.println("Posicao No Rank: "+posicao_Atual);
             System.out.println("Id: "+j.getId());
             System.out.println("Partidas Ganhas: "+j.getPontuacao());
+            System.out.println("Saldo: "+j.getSaldo());
             System.out.println();
         }
         System.out.println("--------Placar--------");
@@ -80,7 +92,7 @@ public class CreateGame {
         System.out.println();
         System.out.println("Deseja Voltar Para Menu Principal");
         System.out.println("Digite '1' Para Sim");
-        System.out.println("Digite '2' Para Nao e Sair");
+        System.out.println("Digite '2' Para Sair Do Jogo");
         System.out.println();
         System.out.println("--------Voltar--------");
 
@@ -89,11 +101,11 @@ public class CreateGame {
             bemVindo();
             return false;
         }
-        fileHandler.Salvar(create);
+        fileHandler.salvar(create);
         return false;
     }
 
-    public static void zerarJogos(){
+    public  void zerarJogos(){
         fileHandler.apagar();
         bemVindo();
     }
@@ -104,10 +116,13 @@ public class CreateGame {
         System.out.println("");
     }
 
-    public static void iniciarPartida(){
+    public void iniciarPartida(){
         System.out.println("");
         System.out.println("");
         System.out.println("");
+        if(create.getJogadores().size() == 0){
+            bemVindo();
+        }
         System.out.println("Iniciando Partida ");
         System.out.println("");
         System.out.println("");
@@ -117,11 +132,37 @@ public class CreateGame {
             System.out.println("Digite um Numero De 1 a 12 A Ser Jogado Pelo Jogador:");
             System.out.println(j.getNome());
             System.out.println();
-            numeroJogado = scan.nextLine();
-            j.setNumeroJogado(Integer.parseInt(numeroJogado));
+            while(!passou){
+                try {
+                    numeroJogado = scan.nextLine();
+                    j.setNumeroJogado(Integer.parseInt(numeroJogado));
+                    passou = true;
+                } catch (IndexOutOfBoundsException e) {
+                    // TODO: handle exception
+                    System.out.println(e.getMessage());
+
+                }
+            }
             System.out.println("Digite um Numero De 1 a 12 A Ser Apostado Pelo Jogador");
-            premio += Integer.parseInt(scan.nextLine());
+            System.out.println(j.getNome());
+            System.out.println("Saldo: ");
+            System.out.println(j.getSaldo());
+            while(!passouAposta){
+                try {
+                    apostaAtual=Integer.parseInt(scan.nextLine());
+                    j.setNumeroAposta(apostaAtual);
+                    premio += apostaAtual;
+                    passouAposta = true;
+                } catch (IndexOutOfBoundsException e) {
+                    // TODO: handle exception
+                    System.out.println(e.getMessage());
+                }
+                
+            }
+            
             System.out.println("----------------------------------");
+            passou = false;
+            passouAposta = false;
         }
         robo.jogar();
         for(Jogador j : create.getJogadores()){
@@ -136,9 +177,9 @@ public class CreateGame {
         resultado();
     }
 
-    public static boolean resultado(){
-        Dado.Lado resultado1 = dado1.jogar();
-        Dado.Lado resultado2 = dado2.jogar();
+    public boolean resultado(){
+        Dado.Lado resultado1 = dados[0].jogar();
+        Dado.Lado resultado2 = dados[1].jogar();
 
         System.out.println();
         System.out.println("--------Resultado--------");
@@ -168,6 +209,19 @@ public class CreateGame {
             System.out.println("Total De Ganhadores: "+ganhadores);
             System.out.println("Premio De "+premio+" Sera Dividido Igualmente: "+"R$ "+premio/ganhadores);
             System.out.println("----------------------");
+            for (Jogador j : create.getJogadores()) {
+                if(j.getNumeroJogado() == somaTotal){
+                    j.setSaldo((premio/ganhadores));
+                }
+            }
+        }
+        else{
+            System.out.println("Ninguem Ganhou Valores Seram Devolvidos");
+            for (Jogador j : create.getJogadores()){
+                if(j.getNumeroJogado() >= 1){
+                    j.seguroDePercas();
+            }
+        }
         } 
         premio = 0;
         ganhadores =0;
@@ -181,7 +235,7 @@ public class CreateGame {
         return false;
     }
 
-    public static void escolhido(){
+    public void escolhido(){
         switch (validator) {
             case "1":
                 loading();

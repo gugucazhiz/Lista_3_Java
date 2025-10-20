@@ -4,4 +4,7 @@ public abstract class Residencia{
 
     
     public abstract String localizacao();
+
+
+    public abstract Boolean isUrbana();
 }
