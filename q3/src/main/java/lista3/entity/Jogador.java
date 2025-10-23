@@ -54,7 +54,7 @@ public class Jogador {
     }
 
     public void setNumeroAposta(float numero_Aposta){
-        if((numero_Aposta<1 || numero_Aposta>12)){
+        if((numero_Aposta<0 || numero_Aposta>12)){
             throw new IndexOutOfBoundsException("Digite uma Aposta valida entre 1 e 12");
         }
         if(numero_Aposta>saldo){
@@ -71,5 +71,9 @@ public class Jogador {
 
     public void setSaldo(float saldo) {
         this.saldo += saldo;
+    }
+
+    public void loadSaldo(float saldo){
+        this.saldo = saldo;
     }
 }

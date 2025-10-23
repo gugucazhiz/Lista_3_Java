@@ -6,22 +6,23 @@ import java.util.Scanner;
 import com.example.controler.SistemaEmpresa;
 import com.example.entity.Cliente;
 import com.example.entity.Funcionario;
+import com.example.entity.Pedido;
 /**
  * Hello world!
  *
  */
 public class App 
 {
-    public static String endereco;
-    public static int quantidade;
-    static Scanner scanner = new Scanner(System.in);
-    static String input = "";
-    static LocalDate diaAtual = LocalDate.now();
-    static LocalTime horaAtual = LocalTime.now();
-    static SistemaEmpresa sistema = new SistemaEmpresa();
-    static Cliente c1;
-    static Funcionario f1;
-    public static void jogar()
+    private static String endereco;
+    private static int quantidade;
+    private Scanner scanner = new Scanner(System.in);
+    private String input = "";
+    private LocalDate diaAtual = LocalDate.now();
+    private LocalTime horaAtual = LocalTime.now();
+    private SistemaEmpresa sistema = new SistemaEmpresa();
+    private Cliente c1;
+    private Funcionario f1;
+    public  void jogar()
     {
 
         // Teste
@@ -34,7 +35,7 @@ public class App
 
     }
 
-    public static void menuPrincipal(){
+    public void menuPrincipal(){
             System.out.println( "----Menu Principal--" );
             System.out.println( "" );
             System.out.println( "" );
@@ -48,12 +49,12 @@ public class App
             if(input.equals("1")){
                 cliente();
             }
-            if(input.equals("2")){
+            else{
                 funcionario();
             }
     }
 
-    public static void menu1(){
+    public  void menu1(){
             System.out.println( "----Menu------------" );
             System.out.println( "" );
             System.out.println( "" );
@@ -64,7 +65,7 @@ public class App
             System.out.println( "-------------------" );
     }
 
-    public static void menu2(){
+    public  void menu2(){
             System.out.println( "----Menu-2----------" );
             System.out.println( "" );
             System.out.println( "" );
@@ -78,7 +79,7 @@ public class App
             System.out.println( "-------------------" );
     }
 
-    public static void endereco(){
+    public  void endereco(){
             System.out.println( "----Pedido----------" );
             System.out.println( "" );
             System.out.println( "" );
@@ -88,7 +89,7 @@ public class App
             System.out.println( "-------------------" );
     }
 
-    public static void quantidade(){
+    public  void quantidade(){
             System.out.println( "----Pedido----------" );
             System.out.println( "" );
             System.out.println( "" );
@@ -97,7 +98,7 @@ public class App
             System.out.println( "" );
             System.out.println( "-------------------" );
     }
-    public static void confirmar(){
+    public void confirmar(){
             System.out.println( "----Pedido----------" );
             System.out.println( "" );
             System.out.println( "" );
@@ -110,7 +111,7 @@ public class App
             System.out.println( "-------------------" );
     }
 
-    public static void abertoOuFechados(){
+    public  void abertoOuFechados(){
             System.out.println( "----Menu------------" );
             System.out.println( "" );
             System.out.println( "" );
@@ -122,7 +123,7 @@ public class App
     }
 
 
-    public static void cliente(){
+    public void cliente(){
         String nome;
         System.out.println("Digite Seu Nome: ");
         nome = scanner.nextLine();
@@ -171,20 +172,25 @@ public class App
                 }
             }
         }
-        else{
+        if(input.equals("2")){
             abertoOuFechados();
             input = scanner.nextLine();
             if(input.equals("1")){
+
                 c1.consultar();
             }
-            else{
+            else if(input.equals("2")){
+                
                 c1.consultarFechados();
             }
             
         }
+        else{
+            menuPrincipal();
+        }
     }
 
-    public static void funcionario(){
+    public void funcionario(){
         String nome;
         System.out.println("Digite Seu Nome: ");
         nome = scanner.nextLine();

@@ -18,7 +18,7 @@ public class FileHandler {
         String output = "save.csv";
         try(FileWriter writer = new FileWriter(output)) {
 
-            writer.append("nome,id,pontuacao\n");
+            writer.append("nome,id,pontuacao,saldo\n");
 
             for (Jogador j : player.getJogadores()) {
                 writer.append(j.getNome())
@@ -55,7 +55,7 @@ public class FileHandler {
                     carregando.criarJogador(linha.get(0));
                     carregando.getJogadores().get(i).setId(Integer.parseInt(linha.get(1)));
                     carregando.getJogadores().get(i).setPontuacao(Integer.parseInt(linha.get(2)));
-                    carregando.getJogadores().get(i).setSaldo(Float.parseFloat(linha.get(3)));
+                    carregando.getJogadores().get(i).loadSaldo(Float.parseFloat(linha.get(3)));
                     i++;
                 }
                 return carregando;

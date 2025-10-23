@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.example.entity.Cliente;
 import com.example.entity.Funcionario;
-import com.example.util.Pedido;
+import com.example.entity.Pedido;
 
 public class SistemaEmpresa {
     private List<Cliente> clientes = new ArrayList<>();

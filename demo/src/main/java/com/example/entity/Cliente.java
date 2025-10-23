@@ -3,8 +3,6 @@ package com.example.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.util.Pedido;
-
 public class Cliente implements Empresa{
     private List<Pedido> pedidos = new ArrayList<>();
     private String nome;
@@ -20,7 +18,8 @@ public class Cliente implements Empresa{
         pedidos.add(pedido);
         pedido.setNomeAssociado(nome);
     }
-
+    
+    @Override
     public  void consultar(){
         System.out.println(this.nome+" tem Esses Pedidos Cadastrados em aberto");
         for(Pedido p : pedidos){
@@ -32,8 +31,8 @@ public class Cliente implements Empresa{
             System.out.println("");
         }
     }
-
-    public  void consultarFechados(){
+    @Override
+    public void consultarFechados(){
         System.out.println(this.nome+" tem Esses Pedidos Cadastrados Concluidos");
         for(Pedido p : pedidos){
             if(p.getStatus().equals("Concluido")){
